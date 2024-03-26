@@ -11,10 +11,14 @@ if (isset($_POST['login']) && isset($_POST["user_type"]) && $_POST["user_type"] 
 	{
 		$veri_user = mysqli_query($con,"SELECT *FROM staffinformation  WHERE staff_code='$password' && staff_status='active'");
 		$verify_login = mysqli_num_rows($veri_user);
+
+		$fetch_admin = mysqli_query( $con,"SELECT * FROM admin_users WHERE email = '$email' AND password = '$password'");
+		$row = mysqli_fetch_assoc($fetch_admin);
+		$_SESSION['user_id']=$row['id'];
 	if($verify_login>0)
 	{
 
-		$_SESSION['user_id']=$password;
+		$_SESSION['user_id']=$row['id'];
 		$_SESSION['admin']='1';
 		$_SESSION['authority']='user';
 	echo "<script>window.location='dashboard.php'</script>";
@@ -39,7 +43,7 @@ if (isset($_POST['login']) && isset($_POST["user_type"]) && $_POST["user_type"] 
 			if (/*password_verify($password, $passkey)*/ $passkey == $password) {
 				// code...
 				$_SESSION['authority']='superadmin';
-				$_SESSION['admin']=$id;
+				$_SESSION['admin']='1';
 				echo "<script>window.location='dashboard.php'</script>";
 			}
 			else
@@ -51,14 +55,17 @@ if (isset($_POST['login']) && isset($_POST["user_type"]) && $_POST["user_type"] 
 }
 else if(isset($_POST['login']) && isset($_POST["user_type"]) && $_POST["user_type"] == 'farmer')
 {
-	$phone =mysqli_real_escape_string($con,$_POST['phone_number']);
+	$email =mysqli_real_escape_string($con,$_POST['email']);
+	$password =mysqli_real_escape_string($con,$_POST['password']);
 
-	$veri_user = mysqli_query($con,"SELECT *FROM suppliers  WHERE supplierphone='$phone' && supplier_status='active'");
+	$veri_user = mysqli_query($con,"SELECT *FROM suppliers  WHERE supplieremail='$pemail' && supplier_status='active' AND password = '$password'");
 	$verify_login = mysqli_num_rows($veri_user);
+	$fetch = mysqli_fetch_array($veri_user);
 
 	if($verify_login > 0)
 	{
-		$_SESSION['supplier_number'] = $phone;
+		$_SESSION['supplier_number'] = $fetch['supplierphone'];
+		$_SESSION['farmer_id'] = $fetch['id'];
 		echo 'okay';
 		echo "<script>window.location='dashboard2.php'</script>";
 	}

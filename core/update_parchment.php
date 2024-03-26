@@ -12,6 +12,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['manageparchment']=='1
 
 $supplier=mysqli_real_escape_string($con,$_POST['supplier']);
 $quantity=mysqli_real_escape_string($con,$_POST['quantity']);
+$grade=mysqli_real_escape_string($con,$_POST['grade']);
 $unitprice=mysqli_real_escape_string($con,$_POST['unitprice']);
 $batchnumber=mysqli_real_escape_string($con,$_POST['batchnumber']);
 $handler=mysqli_real_escape_string($con,$_POST['handler']);
@@ -29,7 +30,7 @@ if($quantity<$remaining)
 else
 {
 
-$save_supplier = mysqli_query($con,"UPDATE parchment SET supplier='$supplier',quantity='$quantity',unitprice='$unitprice',batchnumber='$batchnumber',handler='$handler',otherinfo='$otherinfo',remaining='$quantity' WHERE id='$parch_id' ");
+$save_supplier = mysqli_query($con,"UPDATE parchment SET supplier='$supplier',quantity='$quantity', grade= '$grade',unitprice='$unitprice',batchnumber='$batchnumber',handler='$handler',otherinfo='$otherinfo',remaining='$quantity' WHERE id='$parch_id' ");
 
 if($save_supplier)
 {

@@ -7,7 +7,7 @@ include('core/dash-header2.php');?>
           <div class="card z-index-2 h-100">
             <div class="card-header pb-0 pt-3 bg-transparent">
               <h6 class="text-capitalize">Suppliers' Supply report</h6>
-              <div class="d-flex flex-direction-row" style="float: right;"><button type="button" class="btn btn-sm mx-2 text-danger" id="pdf" onclick="toPdf()">Export PDF</button><button type="button" class="btn btn-sm text-success" id="excel">Export Excel</button></div>
+              <div class="d-flex flex-direction-row" style="float: right;"><button type="button" class="btn btn-sm mx-2 text-danger" id="pdf">Export PDF</button><button type="button" class="btn btn-sm text-success" id="excel">Export Excel</button></div>
             </div>
             <div class="card-body p-3">
             <div class="table-responsive">
@@ -18,6 +18,7 @@ include('core/dash-header2.php');?>
                         <th>Batch No.</th>
                         <th>Date Registered</th>
                         <th>Kgs</th>
+                        <th>Grade</th>
                         <th>Status</th>
                         <th>Quantity Approved</th>
                         <th>Quantity Cancelled</th>
@@ -58,6 +59,16 @@ include('core/dash-header2.php');?>
                                 <td><?php echo $row2['quantity'].' Kgs'?></td>
                                 <td>
                                     <?php
+                                        $gt_grades=mysqli_query($con,"SELECT * FROM coffee_grades ORDER BY coffeegrade");
+                                        while ($grades = mysqli_fetch_array($gt_grades)) {
+                                            if($grades['id'] == $row2['grade']){
+                                            echo $grades['coffeegrade'];
+                                            }
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
                                     if($row2['remaining'] == 0 && $approved == $row2['quantity']){?>
                                         <span class="badge bg-success px-2 py-1 rounded-pill">Fully Approved</span>
                                     <?php
@@ -94,16 +105,27 @@ include('core/dash-header2.php');?>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/js/jquery.min.js"></script>
 <script src="js/saveAsExcel.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
-        $('#excel').on('click', function(){
-            saveAsExcel("myTable", "Supplies");
-        })
+        // $('#excel').on('click', function(){
+        //     saveAsExcel("myTable", "Supplies");
+        // })
 
-        function toPdf() {
+        $("#excel").click(function() {
+            let table = document.getElementsByTagName("table");
+            TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+            name: `Supplies.xlsx`, // fileName you could use any name
+            sheet: {
+                name: 'Sheet 1' // sheetName
+            }
+            });
+        });
+
+        $('#pdf').on('click', function(){
             var doc = new jsPDF();
 
             // Add header
@@ -136,7 +158,7 @@ include('core/dash-header2.php');?>
             });
 
             doc.save("Supplies");
-        }
+        })
     })
 </script>
 

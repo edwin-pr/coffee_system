@@ -51,6 +51,15 @@ if ($_SESSION['admin']=='1') {
                 }
               ?>
               <form action="" method="post" id="myForm">
+                <?php
+                 if(isset($_SESSION['register'])){?>
+                    <div class="alert alert-primary">
+                      <?php echo $_SESSION['register']?>
+                    </div>
+                <?php
+                unset($_SESSION['register']);
+                 }
+                 ?>
                 <div class="form-group d-flex flex-direction-row justify-content-evenly">
                 <div class="form-check">
                     <input type="radio" class="form-check-input" name="user_type" value="admin" id="admin">
@@ -63,7 +72,7 @@ if ($_SESSION['admin']=='1') {
               </div>
 
               <div class="form-group">
-                  <input id="email" name="email" class="form-control _ge_de_ol" type="text" placeholder="User Name" required="" aria-required="true">
+                  <input id="email" name="email" class="form-control _ge_de_ol" type="text" placeholder="Email" required="" aria-required="true">
               </div>
 
               <div class="form-group">                                              
@@ -75,7 +84,10 @@ if ($_SESSION['admin']=='1') {
 
               <div class="form-group">
                 <div class="btn_uy" onclick="login()">
-                  <a href="javascript:;"><span>Login</span></a>
+                  <a href="javascript:void();"><span>Login</span></a>
+                </div>
+                <div class="btn btn-primary">
+                  <a href="register.php" class="text-light"><span>Register</span></a>
                 </div>
               </div>
 
@@ -94,23 +106,35 @@ if ($_SESSION['admin']=='1') {
               var selectedValue = $(this).attr('id');
               if(selectedValue == 'farmer'){
                 $('#email').attr({
-                    'name': 'phone_number',
-                    'type': 'tel',
-                    'placeholder': 'Phone Number'
+                    'name': 'email',
+                    'type': 'email',
+                    'placeholder': 'Email'
                 });
-                $('#password').parent().hide();
+                //$('#password').parent().hide();
               }
               else{
                 $('#email').attr({
                     'name': 'email',
                     'type': 'text',
-                    'placeholder': 'User Name'
+                    'placeholder': 'Email'
                 });
-                $('#password').parent().show();
+                //$('#password').parent().show();
               }
           }
       });
+
+      $('.toggle-password').on('click', function(){
+          var passwordField = $('#password');
+          var fieldType = passwordField.attr('type');
+          
+          if (fieldType === 'password') {
+              passwordField.attr('type', 'text');
+          } else {
+              passwordField.attr('type', 'password');
+          }
+      });
     });
+
     function login()
     {
       if ($('input[type="radio"]').is(':checked')) {

@@ -29,10 +29,6 @@ $data[] = $body;
 echo json_encode($data);
   // code...
 
-
- 
-
-
 }
 
 

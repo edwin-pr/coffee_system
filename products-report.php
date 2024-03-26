@@ -6,25 +6,16 @@ if (isset($_GET['time'])) {
     $period = preg_replace('/[^A-Za-z0-9.\-]/', '', ($_GET['time']));
   $status=  preg_replace('/[^A-Za-z0-9.\-]/', '', ($_GET['status']));
   $chart=  preg_replace('/[^A-Za-z0-9.\-]/', '', ($_GET['chart']));
-
-
 }
 
  ?>
-
     <div class="container-fluid py-4">
-
-
 <style type="text/css">
   .tentra
   {
     display: inline-block;
   }
 </style>
-
-
-
-
       <div class="row">
         <div style="height:550px;"  class="col-lg-12  mb-lg-0 mb-4">
           <div class="card z-index-2 h-100">
@@ -110,14 +101,11 @@ $dataPoints = array(
   array("label"=>"Active", "symbol" => "Active (".$ct_actve.")","y"=>$active),
   array("label"=>"Suspended", "symbol" => "Suspended (".$ct_sus.")","y"=>$suspended),
  
- 
 );
  
 ?>
 
 <!------by Enabled Vs Disabled----->
-
-
 <script>
 window.onload = function() {
  

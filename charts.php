@@ -98,7 +98,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['accessreports']=='1')
 
 
     
-<div class="card m-3 border-warning shadow col-md-3" style="height:160px;border:1px solid crimson;cursor: pointer;" onclick="window.open('customers-report.php?time=6&status=sales&chart=pie')">
+<!-- <div class="card m-3 border-warning shadow col-md-3" style="height:160px;border:1px solid crimson;cursor: pointer;" onclick="window.open('customers-report.php?time=6&status=sales&chart=pie')">
   
 <center>
   
@@ -112,13 +112,11 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['accessreports']=='1')
 
 </center>
 
-</div>
-
-
+</div> -->
 
 
     
-<div class="card m-3 border-warning shadow col-md-3" style="height:160px;border:1px solid crimson;cursor: pointer;" onclick="window.open('stock-charts.php?time=6&status=available-grades-stocks&chart=doughnut')">
+<!-- <div class="card m-3 border-warning shadow col-md-3" style="height:160px;border:1px solid crimson;cursor: pointer;" onclick="window.open('stock-charts.php?time=6&status=available-grades-stocks&chart=doughnut')">
   
 <center>
   
@@ -132,9 +130,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['accessreports']=='1')
 
 </center>
 
-</div>
-
-
+</div> -->
 
 
 

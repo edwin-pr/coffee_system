@@ -11,6 +11,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['manageparchment']=='1
   // authorized to operate
 
 $supplier=mysqli_real_escape_string($con,$_POST['supplier']);
+$grade=mysqli_real_escape_string($con,$_POST['grade']);
 $quantity=mysqli_real_escape_string($con,$_POST['quantity']);
 $unitprice=mysqli_real_escape_string($con,$_POST['unitprice']);
 $batchnumber=mysqli_real_escape_string($con,$_POST['batchnumber']);
@@ -28,7 +29,7 @@ if ($cust_status>0) {
 } else {
 	// code...
 
-$save_supplier = mysqli_query($con,"INSERT INTO parchment(supplier,quantity,unitprice,batchnumber,handler,otherinfo,purchase_status,remaining) VALUES('$supplier','$quantity','$unitprice','$batchnumber','$handler','$otherinfo','active','$quantity')");
+$save_supplier = mysqli_query($con,"INSERT INTO parchment(supplier, quantity, grade, unitprice,batchnumber,handler,otherinfo,purchase_status,remaining) VALUES('$supplier', '$quantity', $grade, '$unitprice','$batchnumber','$handler','$otherinfo','active','$quantity')");
 
 if($save_supplier)
 {
@@ -57,11 +58,5 @@ else
 	echo "<script>window.location='logout.php'</script>";
 
 }
-
-
 }
-
-
-
-
 ?>

@@ -11,7 +11,7 @@
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Available Stock</p>
                     <h5 class="font-weight-bolder text-success" style="font-size: 18px;">
 <?php
-$sum_stock = mysqli_query($con,"SELECT SUM(remaining) AS sum FROM green_beans WHERE processing_status='complete'");
+$sum_stock = mysqli_query($con,"SELECT SUM(quantity) AS sum FROM processing WHERE status='approved'");
 $stocks = mysqli_fetch_array($sum_stock);
 
 echo(number_format($stocks['sum'],2));

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2023 at 05:02 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Mar 26, 2024 at 08:12 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,6 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin_users` (
+  `name` varchar(255) NOT NULL,
+  `id_number` int(20) NOT NULL,
   `id` bigint(200) NOT NULL,
   `email` longtext NOT NULL,
   `password` longtext NOT NULL
@@ -37,8 +39,8 @@ CREATE TABLE `admin_users` (
 -- Dumping data for table `admin_users`
 --
 
-INSERT INTO `admin_users` (`id`, `email`, `password`) VALUES
-(1, 'logan', '$2y$10$oMjhvVKqud3LFUII0Mz8ie9qTL1z.4rQ4Joh4nya3mJNpbtmIwblq');
+INSERT INTO `admin_users` (`name`, `id_number`, `id`, `email`, `password`) VALUES
+('', 0, 1, 'logan', 'admin');
 
 -- --------------------------------------------------------
 
@@ -112,17 +114,6 @@ CREATE TABLE `expenses` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `expenses`
---
-
-INSERT INTO `expenses` (`id`, `receiptnumber`, `customer`, `productname`, `quantity`, `unitprice`, `otherinfo`, `status`, `handler`, `amount`, `created_at`, `updated_at`) VALUES
-(1, '9276', '1', '5', '20', '10000', 'Bubyangu Cooperative Society', 'paid', '2', '200000', '2020-11-18 15:53:37', '2023-11-16 12:06:43'),
-(2, '98971', '2', '4', '15', '8500', 'Parchment Batch No. 53467892', 'paid', '3', '127500', '2021-08-09 15:54:43', '2023-11-16 12:07:02'),
-(3, '2051', '2', '3', '5', '9600', 'Parchment Batch. 098976522', 'cancelled', '2', '48000', '2022-11-17 15:55:45', '2023-11-16 12:07:11'),
-(4, '0987', '2', '2', '10', '5000', 'we bought on credit pending final payment on 12th December 2023', 'partial', '2', '40000', '2023-11-06 09:38:47', '2023-11-06 09:38:47'),
-(5, '9871', '2', '4', '15', '8500', 'Parchment Batch No. 53467892', 'paid', '3', '127500', '2023-11-04 15:54:43', '2023-11-06 09:36:58');
-
 -- --------------------------------------------------------
 
 --
@@ -141,15 +132,6 @@ CREATE TABLE `green_beans` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `green_beans`
---
-
-INSERT INTO `green_beans` (`id`, `coffeegrade`, `quantity`, `batchnumber`, `handler`, `otherinfo`, `processing_status`, `remaining`, `created_at`, `updated_at`) VALUES
-(1, '3', '10000', '17765517', '2', '24 bags, store 37', 'complete', '9325', '2023-11-03 21:17:22', '2023-11-04 09:11:08'),
-(2, '1', '2000', '24441988', '2', '10 bags,\r\nstore 1\r\nExport Grade,\r\nHwasong - Global Pre-Order', 'cancelled', '2000', '2023-03-15 21:23:29', '2023-11-14 16:15:56'),
-(3, '4', '787', '37579291', '2', '25 Bags,\r\nStore 7', 'complete', '661', '2023-06-28 21:32:47', '2023-11-14 16:06:51');
 
 -- --------------------------------------------------------
 
@@ -212,6 +194,7 @@ CREATE TABLE `parchment` (
   `id` bigint(200) NOT NULL,
   `supplier` longtext NOT NULL,
   `quantity` longtext NOT NULL,
+  `grade` varchar(50) NOT NULL,
   `unitprice` longtext NOT NULL,
   `batchnumber` longtext NOT NULL,
   `handler` longtext NOT NULL,
@@ -226,9 +209,11 @@ CREATE TABLE `parchment` (
 -- Dumping data for table `parchment`
 --
 
-INSERT INTO `parchment` (`id`, `supplier`, `quantity`, `unitprice`, `batchnumber`, `handler`, `otherinfo`, `remaining`, `created_at`, `updated_at`, `purchase_status`) VALUES
-(1, '1', '29.92', '11000', '81194661', '2', '7.9 - moisture content\r\n', '9.92', '2023-11-02 08:33:15', '2023-11-03 17:36:24', 'active'),
-(2, '2', '267.987', '10000', '22796893', '2', '10% moisture\r\n2.4% defects', '196.987', '2023-11-03 10:51:18', '2023-11-14 16:27:44', 'active');
+INSERT INTO `parchment` (`id`, `supplier`, `quantity`, `grade`, `unitprice`, `batchnumber`, `handler`, `otherinfo`, `remaining`, `created_at`, `updated_at`, `purchase_status`) VALUES
+(2, '2', '267.987', '3', '10000', '22796893', '2', '10% moisture\r\n2.4% defects', '196.987', '2023-11-03 10:51:18', '2024-03-25 05:13:00', 'active'),
+(3, '1', '32', '1', '120', '68781678', '4', '', '2', '2024-02-22 16:57:58', '2024-03-25 05:13:17', 'active'),
+(4, '1', '15', '6', '120', '96259146', '3', '', '5', '2024-02-22 18:27:44', '2024-03-25 05:13:45', 'active'),
+(9, '5', '30', '3', '120', '42747717', '4', '', '30', '2024-03-25 05:46:41', '2024-03-25 09:32:40', 'active');
 
 -- --------------------------------------------------------
 
@@ -254,9 +239,12 @@ CREATE TABLE `processing` (
 
 INSERT INTO `processing` (`id`, `batchnumber`, `quantity`, `parch_id`, `status`, `handler`, `otherinfo`, `created_at`, `updated_at`) VALUES
 (1, '81194661', '20', '1', 'cancelled', '1', '', '2023-11-03 16:35:46', '2023-11-03 17:30:45'),
-(2, '22796893', '16', '2', 'approved', '2', '', '2023-11-03 16:35:59', '2023-11-14 16:27:44'),
-(3, '22796893', '55', '2', 'approved', '2', '', '2023-11-03 16:36:11', '2023-11-03 17:39:22'),
-(5, '81194661', '20', '1', 'approved', '2', '7.9 - moisture content\r\n', '2023-11-03 17:36:24', '2023-11-03 17:36:24');
+(5, '81194661', '20', '1', 'cancelled', '2', '7.9 - moisture content\r\n', '2023-11-03 17:36:24', '2024-02-22 14:55:28'),
+(6, '68781678', '30', '3', 'approved', '4', '', '2024-02-22 17:22:33', '2024-02-22 17:22:33'),
+(7, '68781678', '2', '3', 'cancelled', '4', '', '2024-02-22 17:24:58', '2024-02-22 22:52:23'),
+(9, '96259146', '10', '4', 'approved', '3', '', '2024-02-22 18:28:46', '2024-02-22 18:28:46'),
+(10, '96259146', '5', '4', 'cancelled', '3', '', '2024-02-22 18:30:12', '2024-02-22 18:30:14'),
+(11, '22796893', '100', '2', 'cancelled', '2', '10% moisture\r\n2.4% defects', '2024-02-22 22:51:15', '2024-02-22 22:52:51');
 
 -- --------------------------------------------------------
 
@@ -273,17 +261,53 @@ CREATE TABLE `products` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `products`
+-- Table structure for table `queries`
 --
 
-INSERT INTO `products` (`id`, `itemsupply`, `status`, `unitmeasurement`, `created_at`, `updated_at`) VALUES
-(6, 'Green Beans', 'suspended', 'Kgs', '2023-11-01 21:20:02', '2023-11-14 16:38:16'),
-(7, 'Roasted Beans', 'active', 'Kgs', '2023-11-01 21:20:11', '2023-11-06 11:37:54'),
-(8, 'Coffee Roasting', 'active', 'Kgs', '2023-11-01 21:20:21', '2023-11-06 11:37:59'),
-(9, 'Coffee Grading', 'suspended', 'Kgs', '2023-11-01 21:20:31', '2023-11-14 16:38:21'),
-(10, 'Coffee Grinding', 'active', 'Kgs', '2023-11-01 21:20:42', '2023-11-14 16:38:10'),
-(12, 'Coffee Husks', 'active', 'Kgs', '2023-11-06 19:53:28', '2023-11-06 19:53:28');
+CREATE TABLE `queries` (
+  `id` int(11) NOT NULL,
+  `farmer_id` int(11) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` longtext NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `queries`
+--
+
+INSERT INTO `queries` (`id`, `farmer_id`, `subject`, `message`, `created_at`) VALUES
+(2, 1, 'Test Message', 'test message', '2024-03-24 13:41:13'),
+(3, 1, 'Another Message', 'Another test message', '2024-03-24 13:42:58'),
+(4, 1, 'Quitting', 'I want to quit', '2024-03-24 14:10:09'),
+(5, 9, 'Trial Request', 'Trial Request Trial Request Trial RequestTrial Request Trial Request', '2024-03-24 16:55:02'),
+(6, 9, 'sample request', 'sdfgiasa dahdiasu kgd aiudhaks diak', '2024-03-24 16:55:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `replies`
+--
+
+CREATE TABLE `replies` (
+  `id` int(11) NOT NULL,
+  `query_id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `content` longtext NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `replies`
+--
+
+INSERT INTO `replies` (`id`, `query_id`, `admin_id`, `content`, `created_at`) VALUES
+(7, 3, 0, 'another message reply test', '2024-03-24 13:57:25'),
+(8, 4, 0, 'why are you quitting? \r\nWe would like to hear your reason.\r\ncontact us through this number: 074444444.', '2024-03-24 14:11:54'),
+(9, 5, 0, 'jhhdrgjrsf hsofljs iofs f hsoifyhso8fhs hfoisehf sjfosr; srhyg isrufyosrihbo k', '2024-03-24 17:00:27');
 
 -- --------------------------------------------------------
 
@@ -305,21 +329,6 @@ CREATE TABLE `sales` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `sales`
---
-
-INSERT INTO `sales` (`id`, `receiptnumber`, `customer`, `productname`, `quantity`, `unitprice`, `otherinfo`, `status`, `handler`, `amount`, `created_at`, `updated_at`) VALUES
-(1, '11338452', '3', '6', '10', '15000', 'AA - Grade', 'paid', '3', '15000', '2023-11-04 13:58:28', '2023-11-04 14:22:21'),
-(2, '34523904', '2', '7', '25', '22000', 'PB - Roasted Beans 25Kg', 'partial', '3', '18000', '2020-11-11 13:59:30', '2023-11-16 16:55:22'),
-(3, '69790159', '2', '8', '300', '2500', 'Roasted 300KG of green beans on order from Larry Harison.', 'unpaid', '2', '0', '2023-11-04 14:00:32', '2023-11-04 14:23:04'),
-(4, '95955076', '3', '9', '10', '3000', 'Coffee Grading of 10Kgs of green beans', 'paid', '3', '30000', '2022-11-15 14:20:30', '2023-11-16 17:56:09'),
-(5, '6265264', '2', '6', '100', '15000', 'took AA Grade on Credit at permision of Manager', 'unpaid', '2', '0', '2023-11-04 14:46:39', '2023-11-04 14:46:39'),
-(6, '17824678', '3', '8', '10', '2500', 'roasted 10 kg of green beans at request of director', 'partial', '3', '10000', '2023-11-04 14:47:52', '2023-11-04 15:01:27'),
-(7, '83183442', '3', '8', '10', '4000', 'hi test', 'partial', '2', '30000', '2023-11-14 08:09:04', '2023-11-14 08:09:04'),
-(8, '92460484', '3', '6', '10', '10000', 'test two', 'paid', '3', '100000', '2023-11-14 08:09:37', '2023-11-14 08:09:37'),
-(9, '25070639', '3', '12', '20', '600', 'unpaid test', 'cancelled', '3', '0', '2023-11-14 08:10:09', '2023-11-14 15:57:07');
 
 -- --------------------------------------------------------
 
@@ -374,9 +383,12 @@ CREATE TABLE `suppliers` (
   `id` bigint(200) NOT NULL,
   `suppliername` longtext NOT NULL,
   `supplierphone` longtext NOT NULL,
+  `supplieremail` varchar(255) NOT NULL,
+  `idnumber` varchar(20) NOT NULL,
   `supplierlocation` longtext NOT NULL,
   `suppliertype` longtext NOT NULL,
   `briefinfo` longtext NOT NULL,
+  `password` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `supplier_status` longtext NOT NULL
@@ -386,10 +398,10 @@ CREATE TABLE `suppliers` (
 -- Dumping data for table `suppliers`
 --
 
-INSERT INTO `suppliers` (`id`, `suppliername`, `supplierphone`, `supplierlocation`, `suppliertype`, `briefinfo`, `created_at`, `updated_at`, `supplier_status`) VALUES
-(1, 'John Doe', '0123456789', 'Buginyanya', '2', 'farmer that supplies parchment coffee in buginyanya, Sironko District', '2023-11-01 18:18:54', '2023-11-02 17:30:28', 'active'),
-(2, 'Diva Larry', '0123456789', 'Namabasa', '2', 'Namabasa Coffee SACCO', '2023-11-02 17:32:05', '2023-11-02 17:32:05', 'active'),
-(3, 'Harry Morgan', '0123456789', 'Busano', '5', 'Busano Cooperative Society', '2023-11-02 17:32:46', '2023-11-02 23:10:30', 'suspended');
+INSERT INTO `suppliers` (`id`, `suppliername`, `supplierphone`, `supplieremail`, `idnumber`, `supplierlocation`, `suppliertype`, `briefinfo`, `password`, `created_at`, `updated_at`, `supplier_status`) VALUES
+(1, 'John Doe', '0123456789', '', '', 'Buginyanya', '7', 'farmer that supplies parchment coffee in buginyanya, Sironko District', '12345678', '2023-11-01 18:18:54', '2024-03-26 10:04:58', 'active'),
+(2, 'Diva Larry', '0123456788', '', '', 'Namabasa', '7', 'Namabasa Coffee SACCO', '', '2023-11-02 17:32:05', '2024-02-22 15:07:00', 'active'),
+(3, 'Harry Morgan', '0123456787', '', '', 'Busano', '5', 'Busano Cooperative Society', '', '2023-11-02 17:32:46', '2024-02-22 15:07:12', 'suspended');
 
 -- --------------------------------------------------------
 
@@ -411,11 +423,7 @@ CREATE TABLE `supplies` (
 --
 
 INSERT INTO `supplies` (`id`, `status`, `itemsupply`, `created_at`, `updated_at`, `unitmeasurement`) VALUES
-(2, 'active', 'Parchment Coffee', '2023-07-11 18:09:52', '2023-11-06 10:41:04', 'Kg'),
-(3, 'suspended', 'Green Beans', '2023-09-14 18:10:02', '2023-11-06 10:41:11', 'Kg'),
-(4, 'suspended', 'Coffee Roaster', '2023-10-18 18:10:12', '2023-11-06 10:41:23', 'Pcs'),
-(5, 'suspended', 'Stationery', '2023-11-01 18:10:39', '2023-11-06 10:41:30', 'Pcs'),
-(6, 'active', 'Electricity', '2023-11-06 19:49:40', '2023-11-06 19:49:40', 'Watts');
+(7, 'active', 'Coffee', '2024-02-22 11:52:43', '2024-02-22 11:52:43', 'Kg');
 
 --
 -- Indexes for dumped tables
@@ -482,6 +490,18 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `queries`
+--
+ALTER TABLE `queries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `replies`
+--
+ALTER TABLE `replies`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sales`
 --
 ALTER TABLE `sales`
@@ -513,7 +533,7 @@ ALTER TABLE `supplies`
 -- AUTO_INCREMENT for table `admin_users`
 --
 ALTER TABLE `admin_users`
-  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `coffee_grades`
@@ -555,19 +575,31 @@ ALTER TABLE `opening_balances`
 -- AUTO_INCREMENT for table `parchment`
 --
 ALTER TABLE `parchment`
-  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `processing`
 --
 ALTER TABLE `processing`
-  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `queries`
+--
+ALTER TABLE `queries`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `replies`
+--
+ALTER TABLE `replies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sales`
@@ -585,13 +617,13 @@ ALTER TABLE `staffinformation`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `supplies`
 --
 ALTER TABLE `supplies`
-  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

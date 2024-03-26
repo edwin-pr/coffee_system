@@ -14,7 +14,7 @@ $expense=mysqli_fetch_array($gt_expense);
 
 $sum_quantity = mysqli_query($con,"SELECT SUM(quantity) as amount FROM green_beans WHERE coffeegrade='$id'");
 $qty = mysqli_fetch_array($sum_quantity);
-$qty_avail = htmlentities($qty['amount'])
+    $qty_avail = htmlentities($qty['amount']);
 
 $item_name=htmlspecialchars_decode($row['coffeegrade']);
 $item_cost =htmlentities($expense['amounts']);

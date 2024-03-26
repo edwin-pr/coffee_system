@@ -36,15 +36,7 @@ elseif (($_SESSION['manageexpenses']=='1') || ($_SESSION['managesales']=='1'))
   include ('core/revenue-stats.php');
   
 }
-
-
-
-
 }
-
-   
-
-
    ?>
 </div>
 

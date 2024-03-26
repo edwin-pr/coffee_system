@@ -72,7 +72,21 @@ while ($sups=mysqli_fetch_array($gt_pdt)) {
    value="<?php echo$sups['id'];?>"><?php echo$sups['suppliername'];?></option>
 <?php } ?>
 </select>
+<br>
 
+<center><small>Coffee Grade</small></center>
+  <select class="form-control rounded-pill" name="grade">
+<?php
+$gt_grades=mysqli_query($con,"SELECT * FROM coffee_grades ORDER BY coffeegrade");
+while ($grades=mysqli_fetch_array($gt_grades)) {
+?>
+<option  <?php if ($grades['id']==($parch['grade'])) {
+    echo "selected";
+  }?> 
+   value="<?php echo$grades['id'];?>"><?php echo$grades['coffeegrade'];?></option>
+<?php } ?>
+</select>
+<br>
 
  <input type="hidden" value="<?php echo($parch['id']);?>" name="parch_id">
 

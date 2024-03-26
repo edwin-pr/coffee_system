@@ -52,9 +52,9 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['manageparchment']=='1
                      <thead>
                         <tr>
                            <th>Supplier</th>
-                           
                            <th>#</th>
                            <th>Unit Price</th>
+                           <th>Grade</th>
                            <th>Handler</th>
                            <th>Other Info</th>
                            <th>#</th>
@@ -103,6 +103,16 @@ else
 ?>
 </td>
 <td><?php echo(number_format($ret['unitprice']));?></td>
+<td>
+  <?php
+      $gt_grades=mysqli_query($con,"SELECT * FROM coffee_grades ORDER BY coffeegrade");
+      while ($grades = mysqli_fetch_array($gt_grades)) {
+        if($grades['id'] == $ret['grade']){
+          echo $grades['coffeegrade'];
+        }
+      }
+?>
+</td>
 <td>
   <?php echo(htmlentities($hands['staffname']));?>
 </td>
@@ -160,6 +170,7 @@ else
                            
                            <th>#</th>
                            <th>Unit Price</th>
+                           <th>Grade</th>
                            <th>Handler</th>
                            
                            <th>Other Info</th>
@@ -234,13 +245,21 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['manageparchment']=='1
 $gt_pdt=mysqli_query($con,"SELECT * FROM suppliers where supplier_status='active' ORDER BY id DESC");
 while ($sups=mysqli_fetch_array($gt_pdt)) {
 ?>
-<option value="<?php echo$sups['id'];?>"><?php echo$sups['suppliername'];?></option>
+<option value="<?php echo$sups['id'];?>"><?php echo $sups['suppliername'].' - '.$sups['idnumber']?></option>
 <?php } ?>
 </select>
- 
 
+  <center><small>Coffee Grade</small></center>
+  <select class="form-control rounded-pill" name="grade">
+<?php
+$gt_grades=mysqli_query($con,"SELECT * FROM coffee_grades ORDER BY coffeegrade");
+while ($grades=mysqli_fetch_array($gt_grades)) {
+?>
+<option value="<?php echo $grades['id'];?>"><?php echo $grades['coffeegrade']?></option>
+<?php } ?>
+</select>
+<br>
 
-  <br>
 <input type="text" class="form-control rounded-pill" name="quantity" placeholder="Kgs">
 
   <br>

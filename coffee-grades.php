@@ -49,7 +49,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['managegreenbeans']=='
                      <thead>
                         <tr>
                            <th>Grade Name</th>
-                           <th>Min Stock Alert</th>
+                           <th>Min Stock</th>
                            <th>Current Stock</th>
                            <th>Action</th>
 
@@ -64,18 +64,28 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['managegreenbeans']=='
 $gt_grades = mysqli_query($con,"SELECT * FROM coffee_grades ORDER BY id  DESC");
 while($row=mysqli_fetch_array($gt_grades))
 {
-$coffee_grades=htmlentities($row['coffeegrade']);
-$grade_id = htmlentities($row['id']);
-$cal_stock = mysqli_query($con,"SELECT SUM(remaining) AS `stock_value` FROM green_beans WHERE coffeegrade='$grade_id'");
-$result = mysqli_fetch_array($cal_stock);
-$grade_sum = htmlentities($result['stock_value']);
-if ($grade_sum>0) {
-  // code...
-  $stock_current = $grade_sum;
-} else {
-  // code...
-  $stock_current='0';
-}
+  $coffee_grades=htmlentities($row['coffeegrade']);
+  $grade_id = htmlentities($row['id']);
+
+  $gt_processing = mysqli_query( $con,'SELECT * FROM processing');
+  while($row2=mysqli_fetch_array($gt_processing)){
+    $parch_id = $row2['parch_id'];
+    $gt_parchment = mysqli_query($con, "SELECT grade FROM parchment WHERE id = $parch_id");
+    $row3 = mysqli_fetch_array($gt_parchment);
+
+    if($row3['grade'] == $grade_id){
+      $cal_stock = mysqli_query($con,"SELECT SUM(quantity) AS sum FROM processing WHERE parch_id='$parch_id'");
+      $result = mysqli_fetch_array($cal_stock);
+      $grade_sum = htmlentities($result['sum']);
+      if ($grade_sum>0) {
+        // code...
+        $stock_current = $grade_sum;
+      } else {
+        // code...
+        $stock_current='0';
+      }
+    }
+  }
 
 ?>
 <tr>
@@ -109,31 +119,19 @@ if ($grade_sum>0) {
                         </tr>
 
                 <?php } ?>
- 
-
-
-                        
                      </tbody>
                      <tfoot>
                         <tr>
                           <th>Grade Name</th>
-                          <th>Min Stock Alert</th>
+                          <th>Min Stock</th>
                            <th>Current Stock</th>
                            <th>#</th>
                         </tr>
                      </tfoot>
                   </table>
                </div>
-
-
-
-
 <?php } else {?>
-
-
-
 <center>
-
 <div class="card m-3 border-warning shadow col-md-6" style="height:400px;border:1px solid crimson;cursor: pointer;" onclick="window.open('supplies-report.php?time=6&status=expenditure&chart=doughnut')">
   
 <center>
@@ -183,7 +181,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['managegreenbeans']=='
   <br>
   <input type="text" required class="form-control rounded-pill" placeholder="Coffee Grade" name="coffeegrade">
   <br>
-  <input type="number" required name="alertlevel" class="form-control rounded-pill" placeholder="Alert if Stock falls below (KGz)">
+  <input type="number" required name="alertlevel" class="form-control rounded-pill" placeholder="Minimum Stock (KGs)">
   <br>
   <button name="add_coffee_grade" class="btn bg-gradient-danger" style="width:68%;"> Add Grade </button>
 </form>

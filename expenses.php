@@ -271,7 +271,7 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['manageexpenses']=='1'
 $gt_customer = mysqli_query($con,"SELECT * FROM suppliers WHERE supplier_status='active' ORDER BY id DESC");
 while ($ro=mysqli_fetch_array($gt_customer)) {
   // code...?>
-<option value="<?php echo(htmlentities($ro['id']));?>"><?php echo(htmlentities($ro['suppliername']));?></option>
+<option value="<?php echo(htmlentities($ro['id']));?>"><?php echo(htmlentities($ro['suppliername']).' - '.$ro['idnumber']);?></option>
   <?php
 }
 ?>

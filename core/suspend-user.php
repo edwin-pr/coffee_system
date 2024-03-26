@@ -41,10 +41,7 @@ else
 }
 else
 {
-
-		echo "<script>window.location='logout.php'</script>";
+	echo "<script>window.location='logout.php'</script>";
 }
 }
-
-
 ?>

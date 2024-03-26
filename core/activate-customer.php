@@ -1,10 +1,4 @@
 <?php
-
-
-
-
-
-
 if (isset($_GET['activate-customer'])) {
 	// code...
 if ($_SESSION['admin']=='1') {
@@ -50,6 +44,4 @@ else
 }
 
 }
-
-
 ?>
