@@ -138,7 +138,12 @@ if ($_SESSION['admin']=='1') {
     function login()
     {
       if ($('input[type="radio"]').is(':checked')) {
-        $('#myForm').submit();
+        if($('#email').val() != '' && $('#password').val() != ''){
+          $('#myForm').submit();
+        }
+        else{
+          alert('All fields are required');
+        }
       }
       else{
         alert('Select user type!');

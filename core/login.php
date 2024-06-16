@@ -58,20 +58,24 @@ else if(isset($_POST['login']) && isset($_POST["user_type"]) && $_POST["user_typ
 	$email =mysqli_real_escape_string($con,$_POST['email']);
 	$password =mysqli_real_escape_string($con,$_POST['password']);
 
-	$veri_user = mysqli_query($con,"SELECT *FROM suppliers  WHERE supplieremail='$pemail' && supplier_status='active' AND password = '$password'");
+	$veri_user = mysqli_query($con,"SELECT *FROM suppliers WHERE supplieremail='$email' AND password = '$password'");
 	$verify_login = mysqli_num_rows($veri_user);
-	$fetch = mysqli_fetch_array($veri_user);
 
 	if($verify_login > 0)
 	{
-		$_SESSION['supplier_number'] = $fetch['supplierphone'];
-		$_SESSION['farmer_id'] = $fetch['id'];
-		echo 'okay';
-		echo "<script>window.location='dashboard2.php'</script>";
+		$fetch = mysqli_fetch_array($veri_user);
+		if($fetch['supplier_status'] == 'active'){
+			$_SESSION['supplier_number'] = $fetch['supplierphone'];
+			$_SESSION['farmer_id'] = $fetch['id'];
+			echo "<script>window.location='dashboard2.php'</script>";
+		}
+		else{
+			$error="Access Denied";
+		}
 	}
 	else
 	{
-		$error="Access Denied!";
+		$error="Wrong Credentials";
 	}
 }
 // else{

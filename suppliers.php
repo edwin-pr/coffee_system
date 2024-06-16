@@ -52,44 +52,44 @@ if (($_SESSION['authority']=='superadmin') || (($_SESSION['managesuppliers']=='1
                      </thead>
                      <tbody>
  
- <?php
+                    <?php
 
 
-$gt_suppliers=mysqli_query($con,"SELECT * FROM suppliers ORDER BY id DESC");
-while ($row=mysqli_fetch_array($gt_suppliers)) {
+                    $gt_suppliers=mysqli_query($con,"SELECT * FROM suppliers ORDER BY id DESC");
+                    while ($row=mysqli_fetch_array($gt_suppliers)) {
 
 
- ?>
+                    ?>
 
- <tr>
-   
+                    <tr>
+                      
 
-   <td><?php echo(htmlentities($row['suppliername'])); ?></td>
-   <td><?php echo(htmlentities($row['supplierphone'])); ?></td>
-   <td><?php echo(htmlentities($row['idnumber'])); ?></td>
-   <td><?php echo(htmlentities($row['supplierlocation'])); ?></td>
-   <td><?php $type = (htmlentities($row['suppliertype'])); 
-$gt_supply = mysqli_query($con,"SELECT * FROM supplies WHERE id='$type'");
-$supply_info=mysqli_fetch_array($gt_supply);
-$supplier_type = htmlentities($supply_info['itemsupply']);
-echo($supplier_type);
- ?></td>
+                      <td><?php echo(htmlentities($row['suppliername'])); ?></td>
+                      <td><?php echo(htmlentities($row['supplierphone'])); ?></td>
+                      <td><?php echo(htmlentities($row['idnumber'])); ?></td>
+                      <td><?php echo(htmlentities($row['supplierlocation'])); ?></td>
+                      <td><?php $type = (htmlentities($row['suppliertype'])); 
+                    $gt_supply = mysqli_query($con,"SELECT * FROM supplies WHERE id='$type'");
+                    $supply_info=mysqli_fetch_array($gt_supply);
+                    $supplier_type = htmlentities($supply_info['itemsupply']);
+                    echo($supplier_type);
+                    ?></td>
 
- <td>
-<?php
+                    <td>
+                    <?php
 
-$supplier_status = (htmlentities($row['supplier_status'])); 
-if($supplier_status=='active')
-{
-  echo '<span class="badge badge-link bg-gradient-success">active</span>';
-}
-else
-{
+                    $supplier_status = (htmlentities($row['supplier_status'])); 
+                    if($supplier_status=='active')
+                    {
+                      echo '<span class="badge badge-link bg-gradient-success">active</span>';
+                    }
+                    else
+                    {
 
-  echo '<span class="badge badge-link bg-gradient-warning">Suspended</span>';
+                      echo '<span class="badge badge-link bg-gradient-warning">Suspended</span>';
 
-}
-?>
+                    }
+                    ?>
    
 
  </td>
